@@ -6,7 +6,6 @@
 `This is a flashcard android application that displays a question to the user and responed to the user's tap to display the answer to the question.
 
 ### App Walk-though
-`TODO://` Add the URL to your animated app walk-though `gif` in the image tag below. Make sure the gif actually renders and animates when viewing this README. (☝️ Remove this paragraph after after adding gif)
 
 <img src="https://github.com/ayahia1/Android--QA/blob/master/App_Walkthrough.gif" width=200><br>
 
