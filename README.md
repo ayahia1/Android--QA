@@ -8,6 +8,7 @@
 ### App Walk-though
 
 <img src="https://github.com/ayahia1/Android--QA/blob/master/App_Walkthrough.gif" width=200><br>
+<!-- a normal html comment -->
 
 ## Required
 - [x] Create New Project in Android Studio
