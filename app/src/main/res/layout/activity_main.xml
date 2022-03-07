@@ -8,7 +8,7 @@
     <TextView
         android:id="@+id/flashcard_question"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="300dp"
         android:gravity="center"
         android:text="Who is the 44th President of the United States?"
         android:textSize="40sp"
@@ -22,12 +22,80 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_below="@id/flashcard_question"
-        android:layout_marginTop="-203dp"
+        android:layout_marginTop="-214dp"
+        android:background="@color/yellow"
         android:gravity="center"
-        android:text = "Barack Obama"
+        android:text="Barack Obama"
+        android:textSize="40sp"
         android:visibility = "invisible"
-        android:textSize = "40sp"
-        android:background = "@color/yellow"
+        />
 
+    <TextView
+        android:id="@+id/option1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below = "@+id/flashcard_question"
+        android:layout_centerHorizontal = "true"
+        android:layout_marginTop = "30dp"
+        android:layout_marginLeft = "10dp"
+        android:layout_marginRight = "10dp"
+        android:gravity = "center"
+        android:background = "#ffe3a2"
+        android:textSize = "25dp"
+        android:textColor = "#4f5bd5"
+        android:visibility="invisible"
+        android:text = "Bill Clinton" />
+
+    <TextView
+        android:id="@+id/option2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/option1"
+        android:layout_centerHorizontal = "true"
+        android:layout_marginTop = "30dp"
+        android:layout_marginLeft = "10dp"
+        android:layout_marginRight = "10dp"
+        android:gravity = "center"
+        android:background = "#ffe3a2"
+        android:textSize = "25dp"
+        android:textColor = "#4f5bd5"
+        android:visibility="invisible"
+        android:text = "George H. W. Bush" />
+
+    <TextView
+        android:id = "@+id/option3"
+        android:layout_width = "match_parent"
+        android:layout_height = "50dp"
+        android:layout_below="@+id/option2"
+        android:layout_centerHorizontal = "true"
+        android:layout_marginTop = "30dp"
+        android:layout_marginLeft = "10dp"
+        android:layout_marginRight = "10dp"
+        android:gravity = "center"
+        android:background = "#ffe3a2"
+        android:textColor = "#4f5bd5"
+        android:textSize = "25dp"
+        android:visibility="invisible"
+        android:text="Barack Obama" />
+
+    <ImageView
+        android:id="@+id/off_eye"
+        android:layout_width = "20dp"
+        android:layout_height = "20dp"
+        android:src="@drawable/ic_on"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:visibility="invisible"
+        />
+
+    <ImageView
+        android:id="@+id/on_eye"
+        android:layout_width = "20dp"
+        android:layout_height = "20dp"
+        android:src="@drawable/ic_off"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
         />
 </RelativeLayout>
