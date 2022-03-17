@@ -31,8 +31,7 @@
 `This is a flashcard android application that displays a question to the user and responed to the user's tap to display the answer to the question.
 
 ### App Walk-though 
-(To be modified later)
-<!-- <img src="https://github.com/ayahia1/Android--QA/blob/master/App_Walkthrough.gif" width=200><br> -->
+<img src="https://github.com/ayahia1/Android--QA/blob/master/App_Walkthrough.gif" width=200><br>
 
 ## Required
 - [x] Create New Project in Android Studio
