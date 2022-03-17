@@ -5,9 +5,7 @@
 `The current version of the app allows the user to add a question and answer to display to theri flashcard application.
 
 ### App Walk-though
-`TODO://` Add the URL to your animated app walk-though `gif` in the image tag below. Make sure the gif actually renders and animates when viewing this README. (☝️ Remove this paragraph after after adding gif)
-
-<img src="YOUR_GIF_URL_HERE" width=200><br>
+<img src = "https://github.com/ayahia1/Android--QA/blob/master/Walkthrough-2.gif" width=200><br>
 
 
 ## Required
