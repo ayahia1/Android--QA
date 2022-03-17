@@ -2,10 +2,14 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         TextView Op3 = findViewById(R.id.option3);
         ImageView On_eye = findViewById(R.id.on_eye);
         ImageView Off_eye = findViewById(R.id.off_eye);
+        ImageView addCard = findViewById(R.id.add_icn);
 
 
         Question.setOnClickListener(new View.OnClickListener() {
@@ -90,5 +95,27 @@ public class MainActivity extends AppCompatActivity {
                 Op3.setVisibility(View.INVISIBLE);
             }
         });
+
+        addCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AddCardActivity.class);
+                MainActivity.this.startActivityForResult(intent, 100);
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 100) {
+           // Log.d("WentBack1", "We got there");
+            if (data != null && resultCode == RESULT_OK) {
+                String Q = data.getExtras().getString("Question");
+                String A = data.getExtras().getString("Answer");
+                ((TextView) findViewById(R.id.flashcard_question)).setText(Q);
+                ((TextView) findViewById(R.id.flashcard_answer)).setText(A);
+            }
+        }
     }
 }
