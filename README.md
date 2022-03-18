@@ -2,7 +2,7 @@
 ## Lab 2
 
 ### App Description
-`The current version of the app allows the user to add a question and answer to display to theri flashcard application.
+`The current version of the app allows the user to add a question and answer to display on their flashcard application.
 
 ### App Walk-though
 <img src = "https://github.com/ayahia1/Android--QA/blob/master/Walkthrough-2.gif" width=200><br>
