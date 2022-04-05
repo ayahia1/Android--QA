@@ -2,10 +2,14 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.Animator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewAnimationUtils;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
         ImageView nextCard = findViewById(R.id.next_icn);
         ImageView delete_btn = findViewById(R.id.trash);
 
+        final Animation leftOutAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.left_out);
+        final Animation rightInAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.right_in);
         allFlashcards = flashcardDatabase.getAllCards();
         //Retrieving all flashcards from the flashcardDatabase (table) and storing them into a list
 
@@ -52,12 +58,44 @@ public class MainActivity extends AppCompatActivity {
             Answer.setText(first_flashcard.getAnswer());
         }
 
+        leftOutAnim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                //to be called when the animation starts
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                // to be called when the animation ends
+                Question.setText(allFlashcards.get(Flashcard_index[0]).getQuestion());
+                Answer.setText(allFlashcards.get(Flashcard_index[0]).getAnswer());
+
+                if (Question.getVisibility() == View.VISIBLE) {
+                    Question.startAnimation(rightInAnim);
+                }
+                else {
+                    Answer.startAnimation(rightInAnim);
+                }
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
         Question.setOnClickListener(new View.OnClickListener() {
             @Override
 
             public void onClick(View v) {
+                int cx = Answer.getWidth() / 2, cy = Answer.getHeight() / 2;
+                float Radius = (float) Math.hypot(cx, cy);
+                Animator anim = ViewAnimationUtils.createCircularReveal(Answer, cx, cy, 0,Radius);
+                anim.setDuration(500);
+
                 Question.setVisibility(View.INVISIBLE);
                 Answer.setVisibility(View.VISIBLE);
+                anim.start();
             }
         });
 
@@ -125,9 +163,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, AddCardActivity.class);
                 MainActivity.this.startActivityForResult(intent, 100);
+                overridePendingTransition(R.anim.right_in, R.anim.left_out);
             }
         });
-
 
         nextCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,10 +179,15 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else {
                     //will comment when running for the first time
-                  //  Flashcard_index[0] = getRandom(Flashcard_index[0], allFlashcards.size() - 1);
-                    Log.d("Message", "Message");
-                    Question.setText(allFlashcards.get(Flashcard_index[0]).getQuestion());
-                    Answer.setText(allFlashcards.get(Flashcard_index[0]).getAnswer());
+                    //Flashcard_index[0] = getRandom(Flashcard_index[0], allFlashcards.size() - 1);
+                    //Log.d("Message", "Message");
+
+                    if (Question.getVisibility() == View.VISIBLE) {
+                        Question.startAnimation(leftOutAnim);
+                    }
+                    else {
+                        Answer.startAnimation(leftOutAnim);
+                    }
                 }
             }
 
