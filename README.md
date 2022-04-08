@@ -3,10 +3,10 @@
 ## Lab 4
 
 ### App Description
-This version of the application is supported with animations for screen transitions, answer reveal, and Q/A transitions (when the next button is clicked). 
+This version of the application is supported with animations for screen transitions, answer reveal, and Q/A flips. 
 
 ### App Walk-though
-<img src="YOUR_GIF_URL_HERE" width=200><br>
+<img src= "https://github.com/ayahia1/Android--QA/blob/master/Walkthrough-4.gif" width=200><br>
 
 ## Required
 - [x] User sees a transition animation when going from the main screen to the add card screen.
