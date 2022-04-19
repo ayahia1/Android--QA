@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -18,6 +19,19 @@ public class AddCardActivity extends AppCompatActivity {
 
         ImageView cancelBtn = findViewById(R.id.cacel_icn);
         ImageView saveBtn = findViewById(R.id.save_icn);
+        EditText QuestionView = findViewById(R.id.Question_view);
+        EditText AnswerView = findViewById(R.id.Answer_view);
+
+        if (getIntent().getExtras() == null){
+            Log.d("getExtras null message", "onCreate: ");
+        }
+
+        if (getIntent().getExtras() != null) {
+            String curQ = getIntent().getExtras().get("Question").toString();
+            String curA = getIntent().getExtras().get("Answer").toString();
+            QuestionView.setText(curQ);
+            AnswerView.setText(curA);
+        }
 
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override

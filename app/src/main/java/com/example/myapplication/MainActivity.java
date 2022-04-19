@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import org.w3c.dom.Text;
 
 import java.util.List;
@@ -24,7 +26,10 @@ public class MainActivity extends AppCompatActivity {
     FlashcardDatabase flashcardDatabase;
     //instance of the flashcard table in the database
 
+    Flashcard cardToedit;
     List <Flashcard> allFlashcards;
+    ImageView edit_btn;
+    final int[] Flashcard_index = {-1};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         flashcardDatabase = new FlashcardDatabase(getApplicationContext());
-        final int[] Flashcard_index = {-1};
+
         TextView Question = findViewById(R.id.flashcard_question);
         TextView Answer = findViewById(R.id.flashcard_answer);
         TextView Op1 = findViewById(R.id.option1);
@@ -44,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         ImageView addCard = findViewById(R.id.add_icn);
         ImageView nextCard = findViewById(R.id.next_icn);
         ImageView delete_btn = findViewById(R.id.trash);
+        edit_btn = findViewById(R.id.edit);
 
         final Animation leftOutAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.left_out);
         final Animation rightInAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.right_in);
@@ -167,6 +173,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        edit_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Flashcard_index[0] == -1) {
+                    String message = "You can't edit the default message";
+                    Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+                    toast.show();
+                    return;
+                }
+                cardToedit = allFlashcards.get(Flashcard_index[0]);
+                Intent intent = new Intent(MainActivity.this, AddCardActivity.class);
+                intent.putExtra("Question", Question.getText());
+                intent.putExtra("Answer", Answer.getText());
+                MainActivity.this.startActivityForResult(intent, 200);
+            }
+        });
+
+
+
         nextCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -240,14 +265,37 @@ public class MainActivity extends AppCompatActivity {
             if (data != null && resultCode == RESULT_OK) {
                 String Q = data.getExtras().getString("Question");
                 String A = data.getExtras().getString("Answer");
-              //  ((TextView) findViewById(R.id.flashcard_question)).setText(Q);
-               // ((TextView) findViewById(R.id.flashcard_answer)).setText(A);
+
+                // display a snackbar on the screen
+                Snackbar.make(findViewById(R.id.flashcard_question), "Card was added", Snackbar.LENGTH_LONG).show();
 
                 flashcardDatabase.insertCard(new Flashcard(Q, A));
-
-
                 Flashcard newCard = new Flashcard(Q,A);
                 allFlashcards.add(newCard);
+            }
+        }
+
+        if (requestCode == 200){
+            if (data != null && resultCode == RESULT_OK){
+                String Q = data.getExtras().getString("Question");
+                String A = data.getExtras().getString("Answer");
+
+                //display them now
+                ((TextView) findViewById(R.id.flashcard_question)).setText(Q);
+                ((TextView) findViewById(R.id.flashcard_answer)).setText(A);
+
+                //display a snackbar on the screen
+                Snackbar.make(findViewById(R.id.flashcard_question), "Card was edited", Snackbar.LENGTH_LONG).show();
+
+                //change them in the list
+                allFlashcards.get(Flashcard_index[0]).setQuestion(Q);
+                allFlashcards.get(Flashcard_index[0]).setAnswer(A);
+
+                cardToedit.setQuestion(Q);
+                cardToedit.setAnswer(A);
+
+                //presist the changes in the flashcardDatabase.
+                flashcardDatabase.updateCard(cardToedit);
             }
         }
     }
