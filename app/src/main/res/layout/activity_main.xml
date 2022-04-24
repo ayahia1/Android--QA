@@ -127,7 +127,7 @@
         android:src = "@drawable/ic_trash"
         android:layout_below = "@id/flashcard_question"
         android:layout_marginTop = "20dp"
-        android:layout_marginLeft="224dp"
+        android:layout_marginLeft="234dp"
         />
 
     <ImageView
@@ -137,8 +137,17 @@
         android:src = "@drawable/ic_edit_btn"
         android:layout_below="@id/flashcard_question"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="107dp"
+        android:layout_marginLeft="97dp"
         />
 
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id = "@+id/cntDown"
+        android:layout_above="@id/on_eye"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:text = "50"
+        android:textSize="40dp"
+        />
 </RelativeLayout>

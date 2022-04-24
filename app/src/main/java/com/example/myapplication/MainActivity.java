@@ -13,6 +13,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.os.CountDownTimer;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     FlashcardDatabase flashcardDatabase;
     //instance of the flashcard table in the database
-
+    TextView countDown;
     Flashcard cardToedit;
     List <Flashcard> allFlashcards;
     ImageView edit_btn;
@@ -50,6 +51,19 @@ public class MainActivity extends AppCompatActivity {
         ImageView nextCard = findViewById(R.id.next_icn);
         ImageView delete_btn = findViewById(R.id.trash);
         edit_btn = findViewById(R.id.edit);
+        countDown = findViewById(R.id.cntDown);
+
+        CountDownTimer timer = new CountDownTimer(31000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                countDown.setText(String.valueOf(millisUntilFinished / 1000));
+            }
+
+            @Override
+            public void onFinish() {
+                countDown.setText("Time is Up!");
+            }
+        };
 
         final Animation leftOutAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.left_out);
         final Animation rightInAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.right_in);
@@ -63,6 +77,9 @@ public class MainActivity extends AppCompatActivity {
             Question.setText(first_flashcard.getQuestion());
             Answer.setText(first_flashcard.getAnswer());
         }
+
+        //starting the timer once the app is started
+        timer.start();
 
         leftOutAnim.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -102,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
                 Question.setVisibility(View.INVISIBLE);
                 Answer.setVisibility(View.VISIBLE);
                 anim.start();
+               // timer.cancel();
             }
         });
 
@@ -110,8 +128,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Answer.setVisibility(View.INVISIBLE);
                 Question.setVisibility(View.VISIBLE);
+                //timer.start();
             }
         });
+
 
         Op1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -213,6 +233,10 @@ public class MainActivity extends AppCompatActivity {
                     else {
                         Answer.startAnimation(leftOutAnim);
                     }
+
+                    //when moving to the next card restart the timer (Cancel current one and start a new one)
+                    timer.cancel();
+                    timer.start();
                 }
             }
 
