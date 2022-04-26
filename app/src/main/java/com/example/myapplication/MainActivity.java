@@ -15,36 +15,52 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.os.CountDownTimer;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.snackbar.Snackbar;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-
-    FlashcardDatabase flashcardDatabase;
-    //instance of the flashcard table in the database
+    FlashcardDatabase flashcardDatabase; //instance of the flashcard table in the database
     TextView countDown;
     Flashcard cardToedit;
     List <Flashcard> allFlashcards;
     ImageView edit_btn;
+    ImageView dayQ;
     final int[] Flashcard_index = {-1};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         Log.d("MyKey", "App should be running");
         setContentView(R.layout.activity_main);
+        Log.d("Before Definitions", "Yes");
 
         flashcardDatabase = new FlashcardDatabase(getApplicationContext());
 
+
         TextView Question = findViewById(R.id.flashcard_question);
         TextView Answer = findViewById(R.id.flashcard_answer);
+
+
         TextView Op1 = findViewById(R.id.option1);
         TextView Op2 = findViewById(R.id.option2);
         TextView Op3 = findViewById(R.id.option3);
+
+
         ImageView On_eye = findViewById(R.id.on_eye);
         ImageView Off_eye = findViewById(R.id.off_eye);
         ImageView addCard = findViewById(R.id.add_icn);
@@ -52,6 +68,9 @@ public class MainActivity extends AppCompatActivity {
         ImageView delete_btn = findViewById(R.id.trash);
         edit_btn = findViewById(R.id.edit);
         countDown = findViewById(R.id.cntDown);
+        dayQ = findViewById(R.id.DayQ);
+
+
 
         CountDownTimer timer = new CountDownTimer(31000, 1000) {
             @Override
@@ -64,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 countDown.setText("Time is Up!");
             }
         };
+
 
         final Animation leftOutAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.left_out);
         final Animation rightInAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.right_in);
@@ -119,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
                 Question.setVisibility(View.INVISIBLE);
                 Answer.setVisibility(View.VISIBLE);
                 anim.start();
-               // timer.cancel();
+                timer.cancel();
             }
         });
 
@@ -128,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Answer.setVisibility(View.INVISIBLE);
                 Question.setVisibility(View.VISIBLE);
-                //timer.start();
+                timer.start();
             }
         });
 
@@ -246,7 +266,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         delete_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -279,6 +298,17 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        dayQ.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, RandomQ.class);
+                MainActivity.this.startActivityForResult(intent, 100);
+                overridePendingTransition(R.anim.right_in, R.anim.left_out);
+            }
+        });
+
+
     }
 
     @Override
